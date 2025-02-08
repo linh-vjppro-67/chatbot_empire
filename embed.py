@@ -5,7 +5,7 @@ from sentence_transformers import SentenceTransformer
 # ---------------------------
 # TẢI MÔ HÌNH E5-BASE
 # ---------------------------
-model = SentenceTransformer("intfloat/multilingual-e5-base", device="mps")  # Chạy trên GPU Apple Silicon (MPS)
+model = SentenceTransformer("intfloat/multilingual-e5-base", device="cpu")  # Chạy trên GPU Apple Silicon (MPS)
 
 # ---------------------------
 # HÀM TẠO EMBEDDING SỬ DỤNG E5-BASE

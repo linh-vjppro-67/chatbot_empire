@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 # ---------------------------
 # TẢI MÔ HÌNH E5-BASE
 # ---------------------------
-model = SentenceTransformer("intfloat/multilingual-e5-base", device="mps")  # Chạy trên GPU Apple Silicon (MPS)
+model = SentenceTransformer("intfloat/multilingual-e5-base", device="cpu")  # Chạy trên GPU Apple Silicon (MPS)
 
 # ---------------------------
 # HÀM TẠO EMBEDDING BATCH SỬ DỤNG E5-BASE
@@ -98,7 +98,7 @@ def answer_query_faiss(user_query, similarity_threshold=0.85):
 # ---------------------------
 # STREAMLIT UI
 # ---------------------------
-st.title("Chatbot tra cứu thông tin (sử dụng FAISS + e5-base)")
+st.title("Chatbot tra cứu thông tin các kỳ thi của Empire")
 
 user_query = st.text_input("Bạn hỏi:")
 
