@@ -110,7 +110,7 @@ if user_query:
         if isinstance(answer, str) and answer.lower().endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp")):
             st.image(answer, caption="Kết quả tìm thấy", use_container_width=True)
         else:
-            st.markdown(f"**Trả lời:** \n{answer}")
+            st.markdown(f"**Trả lời:** \n\n{answer}")
     else:
-        st.markdown(f"**Trả lời:** \n{answer}")
+        st.markdown(f"**Trả lời:** \n\n{answer}")
 
