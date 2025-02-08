@@ -106,10 +106,7 @@ if user_query:
     answer, matched_question, similarity = answer_query_faiss(user_query)
 
     if matched_question:
-        st.markdown(f"**Câu hỏi tìm thấy gần nhất:** {matched_question}")
-        st.markdown(f"**Độ tương đồng:** {similarity*100:.2f}%")
 
-        # Kiểm tra nếu câu trả lời là hình ảnh
         if isinstance(answer, str) and answer.lower().endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp")):
             st.image(answer, caption="Kết quả tìm thấy", use_container_width=True)
         else:
