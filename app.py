@@ -75,7 +75,7 @@ index_to_question = {i: questions_list[i] for i in range(len(questions_list))}
 # ---------------------------
 # HÀM XỬ LÝ TRUY VẤN Q&A SỬ DỤNG FAISS
 # ---------------------------
-def answer_query_faiss(user_query, similarity_threshold=0.85):
+def answer_query_faiss(user_query, similarity_threshold=0.2):
     query_emb = get_embedding_batch([user_query])  # Encode batch (chỉ 1 câu)
     
     k = 1  # Lấy 1 kết quả tốt nhất
