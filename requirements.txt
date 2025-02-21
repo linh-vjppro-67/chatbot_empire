@@ -2,3 +2,4 @@ faiss-cpu
 numpy
 sentence-transformers
 streamlit
+unidecode
