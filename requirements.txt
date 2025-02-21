@@ -1,5 +1,5 @@
 faiss-cpu
 numpy
 sentence-transformers
-streamlit
+streamlit==1.37.0
 unidecode
