@@ -4,12 +4,12 @@ import faiss
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 
-# 🟢 Tải mô hình embedding tiếng Việt
-model = SentenceTransformer("dangvantuan/vietnamese-embedding", device="cpu")  
+# 🟢 Tải mô hình embedding tiếng Việt (768 chiều)
+model = SentenceTransformer("VoVanPhuc/sup-SimCSE-VietNamese-phobert-base", device="cpu")  
 
 # 🟢 HÀM TẠO EMBEDDING
 def get_embedding_batch(texts):
-    texts = [t.lower() for t in texts]  # Chỉ lowercase, không cần "query: "
+    texts = [t.lower() for t in texts]  # Chuyển về lowercase
     embeddings = model.encode(texts, normalize_embeddings=True, batch_size=16)  
     return np.array(embeddings, dtype="float32")  
 
@@ -39,15 +39,15 @@ questions_list = list(embedding_data.keys())
 embeddings_list = [embedding_data[question] for question in questions_list]
 embeddings_array = np.array(embeddings_list, dtype="float32")
 
-# ❌ Kiểm tra lỗi kích thước vector (dangvantuan có 256 chiều)
-if embeddings_array.shape[1] != 256:
-    print(f"❌ Lỗi: Mô hình `dangvantuan/vietnamese-embedding` yêu cầu embedding 256 chiều, nhưng dữ liệu có {embeddings_array.shape[1]} chiều!")
+# ❌ Kiểm tra lỗi kích thước vector (phải là 768)
+if embeddings_array.shape[1] != 768:
+    print(f"❌ Lỗi: Mô hình `sup-SimCSE-VietNamese-phobert-base` yêu cầu embedding 768 chiều, nhưng dữ liệu có {embeddings_array.shape[1]} chiều!")
     exit()
 
 # 🟢 CHUẨN HÓA & FAISS INDEX
 faiss.normalize_L2(embeddings_array)
 
-d = 256  # ⚠️ CẬP NHẬT LẠI KÍCH THƯỚC CHO FAISS
+d = 768  # ⚠️ CẬP NHẬT LẠI KÍCH THƯỚC CHO FAISS
 index = faiss.IndexFlatIP(d)  
 index.add(embeddings_array)  
 
@@ -56,7 +56,7 @@ index_to_question = {i: questions_list[i] for i in range(len(questions_list))}
 # 🟢 HÀM XỬ LÝ TRUY VẤN
 def answer_query_faiss(user_query, similarity_threshold=0.5):
     query_emb = get_embedding_batch([user_query])  
-    k = 3  
+    k = 1  # ⚠️ CHỈ LẤY CÂU TỐT NHẤT
     distances, indices = index.search(query_emb, k)
 
     best_score = distances[0][0]
