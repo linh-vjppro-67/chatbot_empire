@@ -5,7 +5,7 @@ import streamlit as st
 from sentence_transformers import SentenceTransformer
 
 # 🟢 Tải mô hình embedding tiếng Việt (768 chiều)
-model = SentenceTransformer("VoVanPhuc/sup-SimCSE-VietNamese-phobert-base", device="cpu")  
+model = SentenceTransformer("dangvantuan/vietnamese-embedding", device="cpu")  
 
 # 🟢 HÀM TẠO EMBEDDING
 def get_embedding_batch(texts):
