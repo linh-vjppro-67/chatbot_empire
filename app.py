@@ -78,11 +78,17 @@ index_to_question = {i: questions_list[i] for i in range(len(questions_list))}
 def answer_query_faiss(user_query, similarity_threshold=0.2):
     query_emb = get_embedding_batch([user_query])  # Encode batch (chỉ 1 câu)
     
-    k = 1  # Lấy 1 kết quả tốt nhất
+    k = 3  # Lấy 1 kết quả tốt nhất
     distances, indices = index.search(query_emb, k)
     
     best_score = distances[0][0]
     best_index = indices[0][0]
+
+    for i in range(2):  # 2 queries: có dấu và không dấu
+        for j in range(k):
+            if distances[i][j] > best_score:  # Chọn điểm cao nhất
+                best_score = distances[i][j]
+                best_index = indices[i][j]
 
     if best_score < similarity_threshold:
         return "Chúng tôi chưa hiểu câu hỏi của bạn.", None, None
